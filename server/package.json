@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --exec tsx src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "express": "^5.1.0",
+    "prisma": "^6.13.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.3"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.1.0",
+    "cors": "^2.8.5",
+    "nodeman": "^1.1.2",
+    "nodemon": "^3.1.10",
+    "typescript": "^5.9.2"
+  }
+}
