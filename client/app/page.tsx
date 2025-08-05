@@ -16,25 +16,25 @@ export default function Home() {
     console.log(data)
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 py-12 px-4">
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 py-12 px-4">
             <div className="max-w-lg mx-auto">
                 <div className="text-center mb-8">
-                    <h1 className="text-4xl font-bold text-gray-800 mb-2">
-                        Todo<span className="text-indigo-600">List</span>
+                    <h1 className="text-4xl font-bold text-gray-900 mb-2">
+                        Todo<span className="text-gray-700">List</span>
                     </h1>
                     <p className="text-gray-600">
                         今日のタスクを管理しましょう
                     </p>
                 </div>
 
-                <div className="bg-white/70 backdrop-blur-sm shadow-xl rounded-2xl border border-white/20 overflow-hidden">
+                <div className="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl border border-gray-200/50 overflow-hidden">
                     <div className="p-6 border-b border-gray-100">
                         <form className="space-y-4">
                             <div className="relative">
                                 <input
-                                    className="w-full px-4 py-3 pl-12 bg-gray-50 border border-gray-200 rounded-xl 
-                           text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 
-                           focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                                    className="w-full px-4 py-3 pl-12 bg-gray-50/80 border border-gray-200 rounded-2xl 
+                           text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 
+                           focus:ring-gray-400 focus:border-gray-300 transition-all duration-300"
                                     type="text"
                                     placeholder="新しいタスクを追加..."
                                 />
@@ -55,10 +55,10 @@ export default function Home() {
                                 </div>
                             </div>
                             <button
-                                className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 
-                         hover:to-purple-700 text-white font-medium py-3 px-6 rounded-xl 
-                         transform transition-all duration-200 hover:scale-[1.02] hover:shadow-lg
-                         focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                className="w-full bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 
+                         hover:to-black text-white font-medium py-3 px-6 rounded-2xl 
+                         transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
+                         focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                                 type="submit"
                             >
                                 タスクを追加
@@ -70,7 +70,7 @@ export default function Home() {
                       <Todo key={todo.id} todo={todo} />
                     ))}
 
-                    <div className="p-6 bg-gray-50/50 border-t border-gray-100">
+                    <div className="p-6 bg-gray-50/70 border-t border-gray-100">
                         <div className="flex justify-between items-center text-sm text-gray-600">
                             <span>2件のタスク</span>
                             <span>1件完了</span>
