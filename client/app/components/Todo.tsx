@@ -11,8 +11,6 @@ const Todo = ({ todo }: TodoProps) => {
     const [editedTitle, setEditedTitle] = useState<string>(todo.title);
     const { todos, isLoading, error, mutate } = useTodos();
 
-    const [isDeleting, setIsDeleting] = useState(false);
-
     const handleEdit = async () => {
         setIsEditing(!isEditing);
         if (isEditing) {
@@ -27,10 +25,10 @@ const Todo = ({ todo }: TodoProps) => {
 
             if (response.ok) {
                 const editedTodo = await response.json();
-                const updatedData = todos.map((item: TodoType) =>
+                const updatedTodos = todos.map((item: TodoType) =>
                     item.id === todo.id ? editedTodo : item
                 );
-                mutate(updatedData);
+                mutate(updatedTodos);
                 setEditedTitle("");
             }
         }
@@ -51,6 +49,22 @@ const Todo = ({ todo }: TodoProps) => {
         }
     };
 
+    const toggleTodoCompletion = async (id: number, isCompleted: boolean) => {
+        const response = await fetch(`http://localhost:8080/todos/${todo.id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ isCompleted: !isCompleted }),
+        });
+
+        if (response.ok) {
+            const toggledTodo = await response.json();
+            const updatedTodos = todos.map((item: TodoType) =>
+                item.id === todo.id ? toggledTodo : item
+            );
+            mutate(updatedTodos);
+        }
+    };
+
     return (
         <div className="border-b border-gray-100 last:border-b-0">
             <div className="p-6 hover:bg-gray-50/50 transition-all duration-200">
@@ -63,10 +77,16 @@ const Todo = ({ todo }: TodoProps) => {
                                 type="checkbox"
                                 checked={todo.isCompleted}
                                 className="h-5 w-5 text-gray-600 bg-white border-2 border-gray-300 rounded-md focus:ring-gray-400 focus:ring-2 focus:ring-offset-0 transition-all duration-200 cursor-pointer hover:border-gray-400"
+                                onChange={() =>
+                                    toggleTodoCompletion(
+                                        todo.id,
+                                        todo.isCompleted
+                                    )
+                                }
                             />
                         </div>
 
-                        <div className="flex-1">
+                        <div className={`flex-1 ${todo.isCompleted ? "line-through" : ""}`}>
                             {isEditing ? (
                                 <input
                                     type="text"
