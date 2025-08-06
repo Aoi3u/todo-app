@@ -1,20 +1,13 @@
 "use client";
 import Todo from "./components/Todo";
-import useSWR from "swr";
 import { TodoType } from "./types";
 import React, { useRef } from "react";
-
-async function fetcher(key: string) {
-    return fetch(key).then((res) => res.json());
-}
+import { useTodos } from "./hooks/useTodos";
 
 export default function Home() {
     const inputRef = useRef<HTMLInputElement | null>(null);
 
-    const { data, isLoading, error, mutate } = useSWR(
-        "http://localhost:8080/todos",
-        fetcher
-    );
+    const { todos, isLoading, error, mutate } = useTodos();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -29,9 +22,9 @@ export default function Home() {
         });
 
         if (response.ok) {
-          const newTodo = await response.json();
-          mutate([...data, newTodo]);
-          inputRef.current!.value = "";
+            const newTodo = await response.json();
+            mutate([...todos, newTodo]);
+            inputRef.current!.value = "";
         }
     };
 
@@ -50,19 +43,14 @@ export default function Home() {
                         <form className="space-y-4" onSubmit={handleSubmit}>
                             <div className="relative">
                                 <input
-                                    className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl 
-                           text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 
-                           focus:ring-gray-400 focus:border-gray-300 transition-all duration-300"
+                                    className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-300 transition-all duration-300"
                                     type="text"
                                     placeholder="新しいタスクを追加..."
                                     ref={inputRef}
                                 />
                             </div>
                             <button
-                                className="w-full bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 
-                         hover:to-black text-white font-medium py-3 px-6 rounded-2xl 
-                         transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
-                         focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                                className="w-full bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white font-medium py-3 px-6 rounded-2xl transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                                 type="submit"
                             >
                                 タスクを追加
@@ -70,15 +58,15 @@ export default function Home() {
                         </form>
                     </div>
 
-                    {data?.map((todo: TodoType) => (
+                    {todos?.map((todo: TodoType) => (
                         <Todo key={todo.id} todo={todo} />
                     ))}
 
                     <div className="p-6 bg-gray-50/70 border-t border-gray-100">
                         <div className="flex justify-between items-center text-sm text-gray-600">
-                            <span>{data?.length || 0}件のタスク</span>
+                            <span>{todos?.length || 0}件のタスク</span>
                             <span>
-                                {data?.filter(
+                                {todos?.filter(
                                     (todo: TodoType) => todo.isCompleted
                                 ).length || 0}
                                 件完了
