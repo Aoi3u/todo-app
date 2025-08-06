@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TodoType } from "../types";
 import { useTodos } from "../hooks/useTodos";
+import { API_URL } from "@/constants/url";
 
 type TodoProps = {
     todo: TodoType;
@@ -50,7 +51,7 @@ const Todo = ({ todo }: TodoProps) => {
     };
 
     const toggleTodoCompletion = async (id: number, isCompleted: boolean) => {
-        const response = await fetch(`http://localhost:8080/todos/${todo.id}`, {
+        const response = await fetch(`${API_URL}/todos/${todo.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ isCompleted: !isCompleted }),
