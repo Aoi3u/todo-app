@@ -16,7 +16,7 @@ const Todo = ({ todo }: TodoProps) => {
         setIsEditing(!isEditing);
         if (isEditing) {
             const response = await fetch(
-                `http://localhost:8080/todos/${todo.id}`,
+                `${API_URL}/todos/${todo.id}`,
                 {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
@@ -30,13 +30,13 @@ const Todo = ({ todo }: TodoProps) => {
                     item.id === todo.id ? editedTodo : item
                 );
                 mutate(updatedTodos);
-                setEditedTitle("");
+                setEditedTitle(editedTodo.title);
             }
         }
     };
 
     const handleDelete = async () => {
-        const response = await fetch(`http://localhost:8080/todos/${todo.id}`, {
+        const response = await fetch(`${API_URL}/todos/${todo.id}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         });

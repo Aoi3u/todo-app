@@ -25,7 +25,9 @@ export default function Home() {
         if (response.ok) {
             const newTodo = await response.json();
             mutate([...todos, newTodo]);
-            inputRef.current!.value = "";
+            if (inputRef.current) {
+                inputRef.current.value = "";
+            }
         }
     };
 
